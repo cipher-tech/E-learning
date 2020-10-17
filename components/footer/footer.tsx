@@ -80,9 +80,9 @@ const Container = styled.div`
         &-img{
             align-self: center;
             height: 5rem;
-            width: 5rem;
+            /* width: 5rem; */
             margin: 2rem 1rem;
-            border-radius: 50%;
+            /* border-radius: 50%; */
             overflow: hidden;
 
             img{
@@ -92,12 +92,14 @@ const Container = styled.div`
         }
         &__socialLink{
             font-weight: lighter;
-            font-size: ${theme.font.medium};
-            color: ${theme.colorWhite + "70"};
+            font-size: ${theme.font.xsmall};
+            padding: 1rem 0;
+            color: ${theme.colorWhite };
             a{
                 color: ${theme.colorWhite};
                 text-decoration: none;
                 font-size: ${theme.font.medium};
+                margin-top: 1rem;
                 &:visited, &:hover{
                     color: ${theme.colorWhite};
                 }
@@ -138,7 +140,6 @@ const Container = styled.div`
         @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
             justify-content: center;
             width: 100%;
-            
         }
         &-item{
             display: flex;
@@ -146,6 +147,9 @@ const Container = styled.div`
             padding: 1rem 1rem;
             color: ${theme.colorWhite};
             text-decoration: none;
+            @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+                justify-content: center;
+            }
             &__icon{
                 margin-right: 2.5rem;
                 path{
@@ -154,7 +158,7 @@ const Container = styled.div`
                 }
             }
             @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
-                justify-content: flex-start;
+                justify-content: center;
                 width: 100%;
             }
         }
@@ -179,10 +183,11 @@ const Footer = (props) => {
             <div className="footer-options">
                 <div id="google_translate_element"></div>
                 <span className="footer-options-img">
-                    <img src={"/images/logo.jpg"} alt="logo" />
+                    <img src={"/images/logo.png"} alt="logo" />
                 </span>
                 <p className="footer-options__socialLink">
-                    Follow us on instagram for updates
+                Afrilearn actively leverages a network of high-quality teachers, animators, and developers 
+                to provide affordable, world-class education for Africans, anywhere.
                     <br />{/*  */}
                     <a href="/"> {/* <Instagram /> */} @Afrilearn</a>
                 </p>
@@ -204,10 +209,10 @@ const Footer = (props) => {
                 </ul> */}
                 <ul className="footer-list">
                     <li className="footer-list-item"> Contact </li>
-                    <li className="footer-list-item">  Nigeria </li>
-                    <a href="tel:+2348066060467" className="footer-list-item">  +234 906 408 2900 </a>
-                    <a href="tel:+2348066060467" className="footer-list-item">   +234 810 133 3244 </a>
-                    <a href="mailto:cjgrandexchange@gmail.com" className="footer-list-item">  Mail us </a>
+                    <li className="footer-list-item">  Location: Nigeria </li>
+                    <a href="tel:+2348066060467" className="footer-list-item"> Tel: +234 906 408 2900 </a>
+                    <a href="tel:+2348066060467" className="footer-list-item">  Tel: +234 810 133 3244 </a>
+                    <a href="mailto:hello@myafrilearn.com" className="footer-list-item">  Mail us: hello@myafrilearn.com </a>
                 </ul>
 
             </div>

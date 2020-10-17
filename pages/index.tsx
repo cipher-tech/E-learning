@@ -1,7 +1,10 @@
 import Head from 'next/head'
+import styled, { keyframes } from "styled-components";
+import { useSpring, animated } from 'react-spring'
+
 // import styles from '../styles/Home.module.css'
-import styled from "styled-components";
 import { Foot, Reviews } from '../components';
+import { useState } from 'react';
 const theme = {
   colorPrimary: "#2BB58E",
   colorSecondary: "#2B2D50",
@@ -36,12 +39,167 @@ const theme = {
     bpxSmall: "400px"
   }
 }
+const rotation = keyframes`
+    0% {
+        transform: rotate(0deg); 
+    }
+    20% {
+        transform: rotate(180deg); 
+    }
+    100% {
+        transform: rotate(360deg); 
+    }
+    
+`
+
+const triangle = keyframes`
+  0% {
+      right: 2rem; 
+  }
+  50%{
+      right: 4rem
+  }
+  100%{
+      right: 2rem;
+  }
+`
+const triangleMedium = keyframes`
+  0% {
+      left: 2rem; 
+  }
+  50%{
+      left: 4rem
+  }
+  100%{
+      left: 2rem;
+  }
+`
+
+const diamond = keyframes`
+    0% {
+        transform: rotateX(0deg)
+    }
+    50%{
+        transform: rotateX(180deg)
+
+    }
+    100%{
+        transform: rotateX(0deg)
+
+    }
+`
+const smileEnvelope = keyframes`
+    0% {
+        transform: rotateY(0deg)
+    }
+    50%{
+        transform: rotateY(180deg)
+
+    }
+    100%{
+        transform: rotateY(0deg)
+
+    }
+`
+
+const circle = keyframes`
+    0% {
+        transform: scale(1)
+    }
+    40%{
+        transform: scale(1.2)
+    }
+    45%{
+        transform: scale(1)
+    }
+    50%{
+        transform: scale(1.2)
+    }
+    55%{
+        transform: scale(1)
+    }
+`
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr repeat(7, min-content);
   grid-template-columns: repeat(10, [col-start] minmax(min-content, 1fr) [col-end] );
   overflow: hidden;
 
+  .navbar-mobile{
+    position: fixed;
+    top: 0rem;
+    right: 0rem;
+    display: grid;
+    align-items: center;
+    place-items: center;
+    padding: 2rem;
+    z-index: 1200;
+    display: none; 
+    @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+        display: grid; 
+    }
+    &__icon{
+        display: grid;
+        align-items: center;
+        place-items: center;
+        align-self: center;
+        height: 4rem;
+        width: 4rem;
+        padding: 0rem .1rem;
+        transition: all .3s ease-in-out .1s;
+        z-index: 1300;
+        cursor: pointer;
+
+        path{
+            height: 100%;
+            fill: white;
+            color: white;
+        }
+    }
+    &__overlay{
+        content: "";
+        position: fixed;
+        top: 3rem;
+        right: 3rem;
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(to bottom , ${theme.colorPrimary} 40% ,  ${theme.colorSecondary} ) ;
+        /* transform: scale(0); */
+        transition: all 1s cubic-bezier(.04,1.44,.91,-0.33);
+    }
+}
+.navbar-mobile__list{
+    position: fixed;
+    top: 50%;
+    /* left: -50%; */
+    /* width: 25rem; */
+    transform: translate(-50%, -50%);
+    list-style: none;
+    z-index: 1203;
+    display: flex;
+    flex-direction: column;
+    &--item{
+        text-transform: capitalize;
+        padding: 1rem 5rem;
+        margin: 1rem 0;
+        cursor: pointer;
+        text-align: center;
+        background-image: linear-gradient(125deg,  transparent 50%,  ${theme.colorSecondary} 50% ) ;
+        font-size: ${theme.font.small};
+        transition: all .4s ease-in-out .1s;
+        background-size: 230%;
+        color: ${theme.colorBg};
+        text-decoration: none;
+
+        &:hover{
+            background-position: 100%;
+            transform: translateX(1rem);
+        }
+    }            
+
+}
   .header{
     grid-column: 1/-1;
     width: 100%;
@@ -62,15 +220,18 @@ const Container = styled.div`
       justify-content: space-between;
       padding: 1rem 4rem;
       margin-bottom: 3.5rem;
+      @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+        display: none; 
+    }
       /* background: ${theme.colorSecondary}; */
 
       &__logo{
         height: 4.5rem;
-        width: 4.5rem;
-        border-radius: 50%;
+        width: 6.5rem;
+        /* border-radius: 50%; */
         overflow: hidden;
         &--image{
-          object-fit: cover;
+          object-fit: contain;
           height: 100%;
           width: 100%;
         }
@@ -114,7 +275,13 @@ const Container = styled.div`
       justify-self: center;
       justify-items: flex-start;
       padding: 1.5rem;
-      
+      position: relative;
+      @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+        grid-column: 1/-1;
+        /* grid-row: 2; */
+        text-align: center;
+        justify-items: center;
+      }
       &__title{
         font-size: ${theme.font.large};
         padding: 1.5rem 0;
@@ -142,7 +309,85 @@ const Container = styled.div`
           border: solid 1px ${theme.colorSecondary};
         }
       }
+      
+      &--floatingIcons{
+        position: absolute;
+      }
+      .ex{
+        top: 0;
+        left: 0;
+        transition: all 1s ease-in;
+        animation: ${rotation} 2s ease-in-out 0s infinite; 
+        @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+          top: 12rem;
+          left: -3rem;
+        }
+      }
+      .diamond{
+        position: absolute;
+        bottom: 5rem;
+        right: 0;
+        backface-visibility: visible;
+        /* transform: rotateX('angle') */
+        transition: all 2s ease-in;
+        animation: ${diamond} 3s ease-in-out 0s infinite; 
+      }
+      .smileEnvelop{
+        position: absolute;
+        top: 1rem;
+        right: -8rem;
+        backface-visibility: visible;
+        /* transform: rotateX('angle') */
+        transition: all 2s ease-in;
+        animation: ${smileEnvelope} 3s ease-in-out 0s infinite;
+      }
     }
+    &-container-image{
+        position: relative;
+        .header-image{
+          @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+           width: 80%;
+          }
+        }
+        @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+          grid-column: 1/-1;
+          grid-row: 2;
+          text-align: center;
+        }
+        @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+          grid-row: 1;
+    }
+        &--floatingIcons{
+          position: absolute;
+        }
+        .circle{
+          position: absolute;
+          top: 1rem;
+          right: 10rem;
+          backface-visibility: visible;
+          /* transform: rotateX('angle') */
+          transition: all 2s ease-in;
+          animation: ${circle} 3s ease-in-out 0s infinite;
+          @media only screen and (max-width: ${theme.breakPoints.bpxLarge}) {
+            top: -3rem;
+          } 
+        }
+        .doubleTriangle{
+          position: absolute;
+          bottom: 1rem;
+          right: 10rem;
+          max-width: 6rem;
+          backface-visibility: visible;
+          /* transform: rotateX('angle') */
+          transition: all 2s ease-in;
+          animation: ${triangle} 3s ease-in-out 0s infinite;
+          @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+            bottom: 15rem;
+            left: 6rem;
+            animation: ${triangleMedium} 3s ease-in-out 0s infinite;
+          }
+        }
+      }
     &-waveSvg{
       grid-column: 1/-1;
       width: 100%;
@@ -153,17 +398,27 @@ const Container = styled.div`
     grid-column: 2/10;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     grid-template-rows: max-content;
     justify-items: center;
     color: ${theme.colorSecondary};
     align-self: flex-start;
     margin-bottom: 2rem;
+    @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+      margin: 2rem;
+    }
+    @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+      grid-column: 1/-1;
+      margin: 2rem 0;
+    }
     &-container{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-content: center;
+      @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+        margin: 2rem;
+      }
       &__image{
         align-self: center;
         justify-self: center;
@@ -184,11 +439,11 @@ const Container = styled.div`
 
   .quickMessage{
     grid-column: 2/10;
-    width: 100%;
+    width: 97%;
     /* height: 60vh; */
     /* background: ${theme.colorPrimary}; */
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr) );
     grid-template-rows: max-content;
     box-shadow:  0.3rem 0.3rem .7rem #00000073,
       -0.3rem -0.3rem .7rem rgba(230 230 230 / 29%);
@@ -197,11 +452,19 @@ const Container = styled.div`
     justify-items: center;
     padding: 1rem 2rem 0%;
     margin: 2rem 1rem;
+    @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+      grid-column: 1/-1;
+      margin: 2rem 0;
+    }
+    
     &-image{
       max-height: 28rem;
     }
     &-text{
       text-align: left;
+      @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+        text-align: center;
+      }
       h3{
         font-size: ${theme.font.medium};
         padding: 2rem 0rem;
@@ -234,13 +497,17 @@ const Container = styled.div`
     grid-column: 2/10;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
     grid-template-rows: max-content 1fr;
     /* grid-gap: 2rem 4rem; */
     justify-items: center;
     color: ${theme.colorSecondary};
     align-self: flex-start;
     margin: 3rem;
+    @media only screen and (max-width: ${theme.breakPoints.bpSmall}) {
+      grid-column: 1/-1;
+      margin: 2rem 0;
+    }
 
     &-title{
       grid-column: 1/-1;
@@ -266,6 +533,9 @@ const Container = styled.div`
       margin-top: 1rem;
       box-shadow:  0.3rem 0.3rem .7rem #00000073,
       -0.3rem -0.3rem .7rem rgba(230 230 230 / 29%);
+      @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+        margin: 2rem;
+      }
       &__image{
         align-self: center;
         justify-self: center;
@@ -325,12 +595,39 @@ const Container = styled.div`
 
 `
 export default function Home() {
+  const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true) 
+  const toggleMobileNav = () => {
+    setMobileNavIsOpen(!mobileNavIsOpen)
+  }
+  // const closeMobileNav = () => {
+  //     setMobileNavIsOpen(false)
+  // }
+  const spring = useSpring({
+    transform: mobileNavIsOpen ? "scale(170)" : "scale(0)"
+  })
+  const springMove = useSpring({
+    left: mobileNavIsOpen ? "50%;" : "-50%"
+  })
   return (
     <Container>
+       <div className="navbar-mobile">
+                <span className="navbar-mobile__icon" onClick={toggleMobileNav} >
+                    <img src="/images/menu.svg" alt="menu svg"/>
+                </span>
+                <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
+            </div>
+            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
+                <a href='/' className="navbar-mobile__list--item">home</a>
+                <a href='#about' className="navbar-mobile__list--item">About</a>
+                <a href='#skills' className="navbar-mobile__list--item">Pricing</a>
+                <a href='#project' className="navbar-mobile__list--item">courses</a>
+                <a href='#contact' className="navbar-mobile__list--item">contact</a>
+            </animated.ul>
+
       <div className="header">
         <nav className="header-nav">
           <div className="header-nav__logo">
-            <img className="header-nav__logo--image" src="/images/logo.jpg" alt="" />
+            <img className="header-nav__logo--image" src="/images/logo1.png" alt="" />
           </div>
           <ul className="header-nav__list">
             <li className="header-nav__list--item">Home</li>
@@ -355,10 +652,22 @@ export default function Home() {
           </p>
           <img className="header-text__image" src="/images/mobileLink.png" alt="mobile App Links" />
           <button className="header-text__button">Get Started</button>
+
+          <img className="header-text--floatingIcons ex" src="/images/ex.png" alt="ex icon" />
+          <img className="header-text--floatingIcons diamond" src="/images/diamond.png" alt="png icon" />
+          <img className="header-text--floatingIcons smileEnvelop" src="/images/smileEnvelop.png" alt="png icon" />
         </div>
-        <img className="header-image" src="/images/feature.png" alt="feature Image" />
+
+        <div className="header-container-image">
+          <img className="header-image" src="/images/feature.png" alt="feature Image" />
+
+          <img className="header-container-image--floatingIcons circle" src="/images/circle.png" alt="icon" />
+          <img className="header-container-image--floatingIcons doubleTriangle" src="/images/doubleTriangle.png" alt="png icon" />
+
+        </div>
 
         <img className="header-waveSvg" src="/images/wave.png" alt="header-waveSvg" />
+
       </div>
       <div className="features">
         <div className="features-container">
@@ -415,8 +724,8 @@ export default function Home() {
 
       <div className="courses">
         <h3 className="courses-title">
-          Check Out Our Newest <br/>
-        <span className="courses-title--sub">With Our Growing Catalog Of Over 150 programs From Beginner To Advanced</span>
+          Check Out Our Newest <br />
+          <span className="courses-title--sub">With Our Growing Catalog Of Over 150 programs From Beginner To Advanced</span>
         </h3>
         <div className="courses-container">
           <img className="courses-container__image" src="/images/js.png" alt="js icon" />
@@ -439,7 +748,7 @@ export default function Home() {
             <h3>Angular</h3>
             <span className="courses-container__text--span">Learn Angular Fundamentals</span> <br />
             <p className="courses-container__text--paragraph">
-              Learn how to build and launch React web applications using ...
+              Learn how to build and launch Angular web applications using ...
             </p>
             <p className="courses-container__text--stats">
               <span>12 Lectures</span>
@@ -462,13 +771,13 @@ export default function Home() {
             </p>
           </div>
         </div>
-        
+
         <button className="courses-button">View More</button>
       </div>
 
       {/* <Reviews /> */}
 
-     <Foot />
+      <Foot />
 
     </Container>
   )
