@@ -320,7 +320,11 @@ const Container = styled.div`
         animation: ${rotation} 2s ease-in-out 0s infinite; 
         @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
           top: 12rem;
-          left: -3rem;
+          left: 1rem;
+        }
+        @media only screen and (max-width: ${theme.breakPoints.bpxSmall}) {
+          top: 12rem;
+          left: 1rem;
         }
       }
       .diamond{
@@ -334,12 +338,16 @@ const Container = styled.div`
       }
       .smileEnvelop{
         position: absolute;
-        top: 1rem;
-        right: -8rem;
+        top: 4rem;
+        right: -2rem;
         backface-visibility: visible;
         /* transform: rotateX('angle') */
         transition: all 2s ease-in;
         animation: ${smileEnvelope} 3s ease-in-out 0s infinite;
+        @media only screen and (max-width: ${theme.breakPoints.bpxSmall}) {
+          top: 3rem;
+          right: -1rem;
+        }
       }
     }
     &-container-image{
@@ -369,8 +377,13 @@ const Container = styled.div`
           transition: all 2s ease-in;
           animation: ${circle} 3s ease-in-out 0s infinite;
           @media only screen and (max-width: ${theme.breakPoints.bpxLarge}) {
-            top: -3rem;
+            top: 1rem;
           } 
+          @media only screen and (max-width: ${theme.breakPoints.bpxSmall}) {
+          top: 4rem;
+          right: -1rem;
+        }
+          
         }
         .doubleTriangle{
           position: absolute;
@@ -651,6 +664,21 @@ export default function Home() {
   })
   return (
     <Container>
+      <Head>
+        <meta charSet='utf-8' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+        <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
+        <meta name='description' content='Description' />
+        <meta name='keywords' content='Keywords' />
+        <title>Afrilearn</title>
+
+        <link rel="manifest" href="/manifest.json" />
+        <link href='/favicon-16x16.png' rel='icon' type='image/png' sizes='16x16' />
+        <link href='/favicon-32x32.png' rel='icon' type='image/png' sizes='32x32' />
+        <link rel="apple-touch-icon" href="/apple-icon.png"></link>
+        <meta name="theme-color" content="#317EFB" />
+      </Head>
+      
       <div className="navbar-mobile">
         <span className="navbar-mobile__icon" onClick={toggleMobileNav} >
           <img src="/images/menu.svg" alt="menu svg" />
@@ -756,7 +784,7 @@ export default function Home() {
         </div>
         <div className="quickMessage-text">
           <h3>
-            Learn To Code Anytime
+            Learn Anytime
             And Everywhere
           </h3>
           <p>
@@ -783,8 +811,8 @@ export default function Home() {
               JavaScript is how you build interactivity on the web pages, its easy and flexible...
             </p>
             <p className="courses-container__text--stats">
-              <span>12 Lectures</span>
-              <span>14 videos</span>
+              <span>13 Lectures</span>
+              <span>35 Hours</span>
             </p>
           </div>
         </div>
@@ -799,7 +827,7 @@ export default function Home() {
             </p>
             <p className="courses-container__text--stats">
               <span>12 Lectures</span>
-              <span>14 videos</span>
+              <span>49 Hours</span>
             </p>
           </div>
         </div>
@@ -813,8 +841,8 @@ export default function Home() {
               HTML is the building blocks of the web. It gives pages structure and ..
             </p>
             <p className="courses-container__text--stats">
-              <span>12 Lectures</span>
-              <span>14 videos</span>
+              <span>24 Lectures</span>
+              <span>64 Hours</span>
             </p>
           </div>
         </div>
