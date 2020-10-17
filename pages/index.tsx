@@ -456,6 +456,47 @@ const Container = styled.div`
       grid-column: 1/-1;
       margin: 2rem 0;
     }
+
+    &-image__container{
+      position: relative;
+      &--floatingIcons{
+        position: absolute;
+      }
+      .doubleTriangle{
+        position: absolute;
+        top: 1rem;
+        right: -6rem;
+        max-width: 6rem;
+        backface-visibility: visible;
+        /* transform: rotateX('angle') */
+        transition: all 2s ease-in;
+        animation: ${triangle} 3s ease-in-out 0s infinite;
+        @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+          bottom: 15rem;
+          left: 6rem;
+          animation: ${triangleMedium} 3s ease-in-out 0s infinite;
+        }
+      }
+      .ex{
+        bottom: 2rem;
+        left: 0;
+        transition: all 1s ease-in;
+        animation: ${rotation} 2s ease-in-out 0s infinite; 
+        @media only screen and (max-width: ${theme.breakPoints.bpLarge}) {
+          bottom: 2rem;
+          left: -3rem;
+        }
+      }
+      .diamond{
+        position: absolute;
+        bottom: 4rem;
+        right: -2rem;
+        backface-visibility: visible;
+        /* transform: rotateX('angle') */
+        transition: all 2s ease-in;
+        animation: ${diamond} 3s ease-in-out 0s infinite; 
+      }
+    }
     
     &-image{
       max-height: 28rem;
@@ -595,7 +636,7 @@ const Container = styled.div`
 
 `
 export default function Home() {
-  const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true) 
+  const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true)
   const toggleMobileNav = () => {
     setMobileNavIsOpen(!mobileNavIsOpen)
   }
@@ -610,19 +651,19 @@ export default function Home() {
   })
   return (
     <Container>
-       <div className="navbar-mobile">
-                <span className="navbar-mobile__icon" onClick={toggleMobileNav} >
-                    <img src="/images/menu.svg" alt="menu svg"/>
-                </span>
-                <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
-            </div>
-            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
-                <a href='/' className="navbar-mobile__list--item">home</a>
-                <a href='#about' className="navbar-mobile__list--item">About</a>
-                <a href='#skills' className="navbar-mobile__list--item">Pricing</a>
-                <a href='#project' className="navbar-mobile__list--item">courses</a>
-                <a href='#contact' className="navbar-mobile__list--item">contact</a>
-            </animated.ul>
+      <div className="navbar-mobile">
+        <span className="navbar-mobile__icon" onClick={toggleMobileNav} >
+          <img src="/images/menu.svg" alt="menu svg" />
+        </span>
+        <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
+      </div>
+      <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
+        <a href='/' className="navbar-mobile__list--item">home</a>
+        <a href='#about' className="navbar-mobile__list--item">About</a>
+        <a href='#skills' className="navbar-mobile__list--item">Pricing</a>
+        <a href='#project' className="navbar-mobile__list--item">courses</a>
+        <a href='#contact' className="navbar-mobile__list--item">contact</a>
+      </animated.ul>
 
       <div className="header">
         <nav className="header-nav">
@@ -706,7 +747,13 @@ export default function Home() {
       </div>
 
       <div className="quickMessage">
-        <img className="quickMessage-image" src="/images/girlCircle.png" alt="girl Circle" />
+        <div className="quickMessage-image__container">
+          <img className="quickMessage-image" src="/images/girlCircle.png" alt="girl Circle" />
+
+          <img className="quickMessage-image__container--floatingIcons ex" src="/images/ex.png" alt="ex icon" />
+          <img className="quickMessage-image__container--floatingIcons diamond" src="/images/diamond.png" alt="png icon" />
+          <img className="quickMessage-image__container--floatingIcons doubleTriangle" src="/images/doubleTriangle.png" alt="png icon" />
+        </div>
         <div className="quickMessage-text">
           <h3>
             Learn To Code Anytime

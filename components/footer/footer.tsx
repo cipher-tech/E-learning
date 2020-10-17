@@ -142,6 +142,7 @@ const Container = styled.div`
             width: 100%;
         }
         &-item{
+            font-size: ${theme.font.xsmall};
             display: flex;
             justify-content: end;
             padding: 1rem 1rem;
@@ -210,8 +211,8 @@ const Footer = (props) => {
                 <ul className="footer-list">
                     <li className="footer-list-item"> Contact </li>
                     <li className="footer-list-item">  Location: Nigeria </li>
-                    <a href="tel:+2348066060467" className="footer-list-item"> Tel: +234 906 408 2900 </a>
-                    <a href="tel:+2348066060467" className="footer-list-item">  Tel: +234 810 133 3244 </a>
+                    <a href="tel:+2348027855262" className="footer-list-item"> Tel: + 234 802 785 5262 </a>
+                    <a href="tel:+2348051544949" className="footer-list-item">  Tel: + 234 805 154 4949 </a>
                     <a href="mailto:hello@myafrilearn.com" className="footer-list-item">  Mail us: hello@myafrilearn.com </a>
                 </ul>
 
