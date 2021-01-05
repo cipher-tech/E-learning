@@ -248,6 +248,12 @@ const Container = styled.div`
           padding: 1rem;
           align-self: center;
           font-size: ${theme.font.xsmall};
+          transition: all 1s .1s linear;
+          &:hover{
+            cursor: pointer;
+            /* transition: all 1s .1s ease-in-out; */
+            border-bottom: 1px solid ${theme.colorSecondary};
+          }
         }
       }
       &__button{
@@ -595,6 +601,7 @@ const Container = styled.div`
         justify-self: center;
         object-fit: cover;
         width: 100%;
+        max-height: 112.5px;
       }
       &__text{
         text-align: left;
@@ -673,8 +680,8 @@ export default function Home() {
         <title>Afrilearn</title>
 
         <link rel="manifest" href="/manifest.json" />
-        <link href='/favicon-16x16.png' rel='icon' type='image/png' sizes='16x16' />
-        <link href='/favicon-32x32.png' rel='icon' type='image/png' sizes='32x32' />
+        <link href='/favicon-16x16-dunplab-manifest-18217' rel='icon' type='image/png' sizes='16x16' />
+        <link href='/favicon-32x32-dunplab-manifest-18217' rel='icon' type='image/png' sizes='32x32' />
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
@@ -821,9 +828,9 @@ export default function Home() {
           <img className="courses-container__image" src="/images/angular.png" alt="css icon" />
           <div className="courses-container__text">
             <h3>Angular</h3>
-            <span className="courses-container__text--span">Learn Angular Fundamentals</span> <br />
+            <span className="courses-container__text--span">Learn Angular Fundamentals: Complete Guide</span> <br />
             <p className="courses-container__text--paragraph">
-              Learn how to build and launch Angular web applications using ...
+              Learn how to build and launch web applications using Angular and learn...
             </p>
             <p className="courses-container__text--stats">
               <span>12 Lectures</span>

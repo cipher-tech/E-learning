@@ -193,7 +193,7 @@ const Footer = (props) => {
                     <a href="/"> {/* <Instagram /> */} @Afrilearn</a>
                 </p>
                 <span className="footer-options__credit">
-                    © 2020 Afrilearn
+                    © {new Date().getFullYear()} cipher-tech
                 </span>
             </div>
             <div className="footer-groupList">
@@ -211,9 +211,9 @@ const Footer = (props) => {
                 <ul className="footer-list">
                     <li className="footer-list-item"> Contact </li>
                     <li className="footer-list-item">  Location: Nigeria </li>
-                    <a href="tel:+2348027855262" className="footer-list-item"> Tel: + 234 802 785 5262 </a>
-                    <a href="tel:+2348051544949" className="footer-list-item">  Tel: + 234 805 154 4949 </a>
-                    <a href="mailto:hello@myafrilearn.com" className="footer-list-item">  Mail us: hello@myafrilearn.com </a>
+                    <a href="tel:+2348027855262" className="footer-list-item"> Tel: + 234 802 785 000 </a>
+                    <a href="tel:+2348051544949" className="footer-list-item">  Tel: + 234 805 154 0000 </a>
+                    <a href="mailto:hello@myafri.com" className="footer-list-item">  Mail us: hello@myafrilearn.com </a>
                 </ul>
 
             </div>
